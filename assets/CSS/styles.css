@@ -37,7 +37,7 @@ a:hover {
 /* Estilo da barra lateral para mobile */
 .sidebar {
     position: static; /* Não flutua em mobile */
-    width: calc(95% - 2 * var(--padding-global));
+    width: 90%;
     height: auto;
     margin: var(--padding-global) auto;
     padding: var(--padding-global);
@@ -124,7 +124,7 @@ a:hover {
 /* Estilo da área de conteúdo para mobile */
 .content-area {
     margin: 0 auto;
-    width: calc(100% - 2 * var(--padding-global));
+    width: 90%;
     padding: var(--padding-global) 0;
     max-width: none;
     position: relative;
@@ -213,21 +213,16 @@ a:hover {
 
     /* Estilo da barra lateral para desktop */
     .sidebar {
-    position: static;
-    width: 90%; /* Ajustado para um valor de porcentagem */
-    height: auto;
-    margin: var(--padding-global) auto;
-    padding: var(--padding-global);
-    background-color: var(--cor-secundaria);
-    border-radius: var(--borda-arredondada);
-    box-shadow: var(--sombra-card);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    z-index: 1000;
-    border: 2px solid var(--cor-destaque);
-}
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 300px; /* Aumentado para 300px */
+        height: calc(100vh - 40px);
+        margin: 0;
+        border-radius: var(--borda-arredondada);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        border: 2px solid var(--cor-destaque);
+    }
     
     .profile-photo {
         width: 150px; /* Volta a foto para o tamanho original */
@@ -259,13 +254,12 @@ a:hover {
 
     /* Estilo da área de conteúdo para desktop */
     .content-area {
-    margin: 0 auto;
-    width: 95%; /* Ajustado para um valor de porcentagem */
-    padding: var(--padding-global) 0;
-    max-width: none;
-    position: relative;
-    /* min-height será controlado pelo JS */
-}
+        margin-left: 380px; /* Aumentado para 380px */
+        padding: var(--padding-global) 10%;
+        max-width: 900px;
+        flex-grow: 1;
+        margin-top: 1.2rem;
+    }
 
     /* Estilo para as seções de conteúdo (desktop: sobreposição) */
     .section-card {
