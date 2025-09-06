@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contentArea = document.querySelector('.content-area');
     const sidebar = document.querySelector('.sidebar');
     const svg = document.getElementById('connection-lines');
-    const ball = document.querySelector('.ping-pong-ball');
 
-    // Função para verificar se está em modo desktop
     function isDesktopView() {
         return window.innerWidth > 768;
     }
@@ -104,58 +102,4 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         initializeLayout();
     });
-
-    // --- Lógica da Bola de Pingue-Pongue (DVD Screensaver) ---
-    if (ball) {
-        const ballSize = 20;
-        let x = 0;
-        let y = 0;
-        let dx = 4;
-        let dy = 4;
-
-        const colors = [
-            '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'
-        ];
-        let currentColorIndex = 0;
-
-        function getRandomColor() {
-            currentColorIndex = (currentColorIndex + 1) % colors.length;
-            return colors[currentColorIndex];
-        }
-
-        function animateBall() {
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-
-            if (!isDesktopView()) {
-                ball.style.display = 'none';
-                return;
-            } else {
-                ball.style.display = 'block';
-            }
-
-            x += dx;
-            y += dy;
-
-            if (x + ballSize > viewportWidth || x < 0) {
-                dx *= -1;
-                ball.style.backgroundColor = getRandomColor();
-            }
-            if (y + ballSize > viewportHeight || y < 0) {
-                dy *= -1;
-                ball.style.backgroundColor = getRandomColor();
-            }
-
-            if (x + ballSize > viewportWidth) x = viewportWidth - ballSize;
-            if (x < 0) x = 0;
-            if (y + ballSize > viewportHeight) y = viewportHeight - ballSize;
-            if (y < 0) y = 0;
-
-            ball.style.transform = `translate(${x}px, ${y}px)`;
-
-            requestAnimationFrame(animateBall);
-        }
-
-        animateBall();
-    }
 });

@@ -6,8 +6,8 @@
     --cor-secundaria-transparente: rgba(30, 30, 30, 0.9); /* Cinza com 90% de opacidade */
     --cor-card-solido: #2b2b2b; /* Novo tom de cinza sólido para os cards internos */
     --cor-texto-principal: #ffffff; /* Texto branco */
-    --cor-texto-secundario: #f7f6f6; /* Cinza médio para detalhes */
-    --cor-destaque: #27ac95; /* Azul ciano/neon para destaque */
+    --cor-texto-secundario: #a0a0a0; /* Cinza médio para detalhes */
+    --cor-destaque: #1ddbcb; /* Azul ciano/neon para destaque */
     --padding-global: 20px;
     --borda-arredondada: 8px;
     --sombra-card: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -46,7 +46,7 @@ a:hover {
     height: auto;
     margin: var(--padding-global) auto;
     padding: var(--padding-global);
-    background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
+    background-color: var(--cor-secundaria-transparente);
     border-radius: var(--borda-arredondada);
     box-shadow: var(--sombra-card);
     display: flex;
@@ -114,15 +114,15 @@ a:hover {
     transition: background-color var(--transicao-suave), color var(--transicao-suave), transform var(--transicao-suave);
     border-radius: var(--borda-arredondada);
     text-align: center;
-    background-color: transparent; /* Fundo transparente por padrão */
-    border: 2px solid var(--cor-destaque); /* Contorno com a cor de destaque */
-    color: var(--cor-destaque); /* Texto com a cor de destaque */
+    background-color: transparent;
+    border: 2px solid var(--cor-destaque);
+    color: var(--cor-destaque);
 }
 
 .nav-links a:hover {
-    background-color: var(--cor-destaque); /* Preenche o botão com a cor de destaque */
-    color: #000000; /* Texto muda para preto para contraste */
-    border-color: var(--cor-destaque); /* Mantém a borda com a cor de destaque */
+    background-color: var(--cor-destaque);
+    color: #000000;
+    border-color: var(--cor-destaque);
     transform: translateY(-3px);
 }
 
@@ -137,7 +137,7 @@ a:hover {
 
 /* Estilo para as seções de conteúdo (mobile: todas visíveis) */
 .section-card {
-    background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
+    background-color: var(--cor-secundaria-transparente);
     padding: 30px;
     border-radius: var(--borda-arredondada);
     box-shadow: var(--sombra-card);
@@ -164,7 +164,7 @@ a:hover {
 }
 
 .card {
-    background-color: var(--cor-card-solido); /* Fundo sólido */
+    background-color: var(--cor-card-solido);
     border-left: 3px solid var(--cor-destaque);
     padding: var(--padding-global);
     border-radius: var(--borda-arredondada);
@@ -197,12 +197,8 @@ a:hover {
     color: var(--cor-texto-secundario);
 }
 
-/* Estilo para as linhas de conexão e bola de pingue-pongue */
+/* Estilo para as linhas de conexão */
 .connection-lines {
-    display: none;
-}
-
-.ping-pong-ball {
     display: none;
 }
 
@@ -220,7 +216,7 @@ a:hover {
         width: 300px;
         height: calc(100vh - 40px);
         margin: 0;
-        background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
+        background-color: var(--cor-secundaria-transparente);
         border-radius: var(--borda-arredondada);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
         border: 2px solid var(--cor-destaque);
@@ -263,7 +259,7 @@ a:hover {
     }
 
     .section-card {
-        background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
+        background-color: var(--cor-secundaria-transparente);
         padding: 40px;
         position: absolute;
         top: 0;
@@ -291,7 +287,7 @@ a:hover {
     }
 
     .card {
-        background-color: var(--cor-card-solido); /* Fundo sólido */
+        background-color: var(--cor-card-solido);
         padding: var(--padding-global);
     }
 
@@ -300,10 +296,6 @@ a:hover {
     }
     
     .connection-lines {
-        display: block;
-    }
-    
-    .ping-pong-ball {
         display: block;
     }
 }
