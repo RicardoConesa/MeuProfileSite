@@ -1,10 +1,13 @@
 /* Configurações básicas e variáveis */
 :root {
-    --cor-fundo: #121212; /* Cinza bem escuro, quase preto */
+    --cor-fundo-inical: #121212; /* Cinza bem escuro, quase preto */
+    --cor-fundo-final: #1a2a3a; /* Tom de azul escuro para o fundo */
     --cor-secundaria: #1e1e1e; /* Cinza um pouco mais claro */
-    --cor-texto-principal: #e0e0e0; /* Cinza claro para o texto */
-    --cor-texto-secundario: #a0a0a0; /* Cinza médio para detalhes */
-    --cor-destaque: #13b8c4; /* Azul ciano/neon para destaque */
+    --cor-secundaria-transparente: rgba(30, 30, 30, 0.9); /* Cinza com 90% de opacidade */
+    --cor-card-solido: #2b2b2b; /* Novo tom de cinza sólido para os cards internos */
+    --cor-texto-principal: #ffffff; /* Texto branco */
+    --cor-texto-secundario: #f7f6f6; /* Cinza médio para detalhes */
+    --cor-destaque: #27ac95; /* Azul ciano/neon para destaque */
     --padding-global: 20px;
     --borda-arredondada: 8px;
     --sombra-card: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -13,14 +16,16 @@
 
 /* Estilo geral da página (Mobile-First) */
 body {
-    background-color: var(--cor-fundo);
+    background-image: linear-gradient(135deg, var(--cor-fundo-inical), var(--cor-fundo-final));
+    background-size: cover;
+    background-attachment: fixed;
     color: var(--cor-texto-principal);
     font-family: 'Merriweather', serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
     display: flex;
-    flex-direction: column; /* Organiza os elementos em coluna por padrão */
+    flex-direction: column;
     align-items: center;
 }
 
@@ -36,12 +41,12 @@ a:hover {
 
 /* Estilo da barra lateral para mobile */
 .sidebar {
-    position: static; /* Não flutua em mobile */
+    position: static;
     width: 90%;
     height: auto;
     margin: var(--padding-global) auto;
     padding: var(--padding-global);
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
     border-radius: var(--borda-arredondada);
     box-shadow: var(--sombra-card);
     display: flex;
@@ -61,7 +66,7 @@ a:hover {
 }
 
 .profile-photo {
-    width: 100px; /* Foto menor em mobile */
+    width: 100px;
     height: 100px;
     border-radius: 50%;
     border: 3px solid var(--cor-destaque);
@@ -95,7 +100,7 @@ a:hover {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: row; /* Links em linha para mobile */
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
@@ -109,15 +114,15 @@ a:hover {
     transition: background-color var(--transicao-suave), color var(--transicao-suave), transform var(--transicao-suave);
     border-radius: var(--borda-arredondada);
     text-align: center;
-    background-color: transparent;
-    border: 2px solid var(--cor-texto-secundario);
-    color: var(--cor-texto-principal);
+    background-color: transparent; /* Fundo transparente por padrão */
+    border: 2px solid var(--cor-destaque); /* Contorno com a cor de destaque */
+    color: var(--cor-destaque); /* Texto com a cor de destaque */
 }
 
 .nav-links a:hover {
-    background-color: var(--cor-destaque);
-    color: var(--cor-fundo);
-    border-color: var(--cor-destaque);
+    background-color: var(--cor-destaque); /* Preenche o botão com a cor de destaque */
+    color: #000000; /* Texto muda para preto para contraste */
+    border-color: var(--cor-destaque); /* Mantém a borda com a cor de destaque */
     transform: translateY(-3px);
 }
 
@@ -128,28 +133,26 @@ a:hover {
     padding: var(--padding-global) 0;
     max-width: none;
     position: relative;
-    /* min-height será controlado pelo JS */
 }
 
 /* Estilo para as seções de conteúdo (mobile: todas visíveis) */
 .section-card {
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
     padding: 30px;
     border-radius: var(--borda-arredondada);
     box-shadow: var(--sombra-card);
-    transition: none; /* Remove a transição complexa em mobile */
-    position: static; /* Remove a posição absoluta para fluxo normal */
-    transform: none; /* Remove transformações */
-    opacity: 1; /* Todos os cards visíveis */
-    filter: none; /* Remove o blur */
+    transition: none;
+    position: static;
+    transform: none;
+    opacity: 1;
+    filter: none;
     pointer-events: all;
     margin-bottom: 20px;
     border: 2px solid var(--cor-destaque);
 }
 
 .section-card.active {
-    /* Não há necessidade de estilos especiais para 'active' em mobile */
-    border: 2px solid var(--cor-destaque); /* Mantém a borda em mobile */
+    border: 2px solid var(--cor-destaque);
 }
 
 .section-card h2 {
@@ -161,7 +164,7 @@ a:hover {
 }
 
 .card {
-    background-color: var(--cor-fundo);
+    background-color: var(--cor-card-solido); /* Fundo sólido */
     border-left: 3px solid var(--cor-destaque);
     padding: var(--padding-global);
     border-radius: var(--borda-arredondada);
@@ -196,45 +199,44 @@ a:hover {
 
 /* Estilo para as linhas de conexão e bola de pingue-pongue */
 .connection-lines {
-    display: none; /* Escondido por padrão em mobile */
+    display: none;
 }
 
 .ping-pong-ball {
-    display: none; /* Escondido por padrão em mobile */
+    display: none;
 }
 
-
-/* --- Media Queries (Adaptando para telas maiores) --- */
+/* --- MEDIA QUERIES (ADAPTANDO PARA TELAS MAIORES) --- */
 @media (min-width: 769px) {
     body {
-        flex-direction: row; /* Volta o layout para linha */
-        align-items: flex-start; /* Alinha o conteúdo ao topo */
+        flex-direction: row;
+        align-items: flex-start;
     }
 
-    /* Estilo da barra lateral para desktop */
     .sidebar {
         position: fixed;
         top: 20px;
         left: 20px;
-        width: 300px; /* Aumentado para 300px */
+        width: 300px;
         height: calc(100vh - 40px);
         margin: 0;
+        background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
         border-radius: var(--borda-arredondada);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
         border: 2px solid var(--cor-destaque);
     }
     
     .profile-photo {
-        width: 150px; /* Volta a foto para o tamanho original */
+        width: 150px;
         height: 150px;
     }
 
     .profile-name {
-        font-size: 1.5rem; /* Volta o nome para o tamanho original */
+        font-size: 1.5rem;
     }
 
     .profile-info p {
-        font-size: 1rem; /* Volta o texto de contato para o tamanho original */
+        font-size: 1rem;
     }
 
     .sidebar-nav {
@@ -242,7 +244,7 @@ a:hover {
     }
 
     .nav-links {
-        flex-direction: column; /* Links voltam a ser em coluna */
+        flex-direction: column;
         gap: 15px;
     }
     
@@ -252,19 +254,18 @@ a:hover {
         text-align: left;
     }
 
-    /* Estilo da área de conteúdo para desktop */
     .content-area {
-        margin-left: 380px; /* Aumentado para 380px */
+        margin-left: 380px;
         padding: var(--padding-global) 10%;
         max-width: 900px;
         flex-grow: 1;
         margin-top: 1.2rem;
     }
 
-    /* Estilo para as seções de conteúdo (desktop: sobreposição) */
     .section-card {
+        background-color: var(--cor-secundaria-transparente); /* Fundo transparente */
         padding: 40px;
-        position: absolute; /* Volta a posição absoluta para a sobreposição */
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
@@ -290,6 +291,7 @@ a:hover {
     }
 
     .card {
+        background-color: var(--cor-card-solido); /* Fundo sólido */
         padding: var(--padding-global);
     }
 
@@ -298,10 +300,10 @@ a:hover {
     }
     
     .connection-lines {
-        display: block; /* Exibe as linhas em desktop */
+        display: block;
     }
     
     .ping-pong-ball {
-        display: block; /* Exibe a bola de pingue-pongue em desktop */
+        display: block;
     }
 }
