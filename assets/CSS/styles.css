@@ -6,7 +6,7 @@
     --cor-secundaria-transparente: rgba(30, 30, 30, 0.9); /* Cinza com 90% de opacidade */
     --cor-card-solido: #2b2b2b; /* Novo tom de cinza sólido para os cards internos */
     --cor-texto-principal: #ffffff; /* Texto branco */
-    --cor-texto-secundario: #a0a0a0; /* Cinza médio para detalhes */
+    --cor-texto-secundario: #ffffff; /* Cinza médio para detalhes */
     --cor-destaque: #1ddbcb; /* Azul ciano/neon para destaque */
     --padding-global: 20px;
     --borda-arredondada: 8px;
