@@ -4,16 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const contentArea = document.querySelector('.content-area');
     const sidebar = document.querySelector('.sidebar');
     const svg = document.getElementById('connection-lines');
+    const ball = document.querySelector('.ping-pong-ball');
 
-    // Função para verificar se está em modo mobile
-    function isMobileView() {
-        return window.innerWidth <= 768; // O mesmo breakpoint do CSS
+    // Função para verificar se está em modo desktop
+    function isDesktopView() {
+        return window.innerWidth > 768;
     }
 
-    // Função para ajustar a altura da área de conteúdo (apenas em desktop)
     function adjustContentAreaHeight() {
-        if (isMobileView()) {
-            contentArea.style.minHeight = 'auto'; // Deixa o fluxo normal em mobile
+        if (!isDesktopView()) {
+            contentArea.style.minHeight = 'auto';
             return;
         }
         const activeSection = document.querySelector('.section-card.active');
@@ -22,10 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Função para desenhar as linhas de conexão (apenas em desktop)
     function drawConnectionLine() {
-        if (isMobileView()) {
-            svg.innerHTML = ''; // Limpa o SVG em mobile
+        if (!isDesktopView()) {
+            svg.innerHTML = '';
             return;
         }
         svg.innerHTML = ''; 
@@ -59,11 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            // Em mobile, a navegação pode rolar para a seção, mas não precisa do 'active'
-            if (isMobileView()) {
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+
+            if (!isDesktopView()) {
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
                 return;
             }
 
@@ -84,22 +81,81 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Lógica para inicializar e reajustar no carregamento/redimensionamento
     function initializeLayout() {
-        if (isMobileView()) {
-            // Remove a classe 'active' de todas as seções para exibi-las em fluxo normal
+        if (!isDesktopView()) {
             sections.forEach(section => {
                 section.classList.remove('active');
             });
-            // Adiciona a classe 'active' à primeira seção novamente, se precisar de um estado inicial
-            // Ou, remove todos os estilos inline para que o CSS de mobile assuma
-            sections.forEach(section => {
-                section.style = ''; // Limpa estilos inline que o JS poderia ter aplicado
-            });
-            // Opcional: Ativa a primeira seção em mobile para garantir borda de destaque
-            // if (sections.length > 0) {
-            //     sections[0].classList.add('active');
-            // }
         } else {
-            // Em desktop, garante que apenas a primeira esteja ativa
-            sections
+            sections.forEach((section, index) => {
+                if (index === 0) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+        adjustContentAreaHeight();
+        drawConnectionLine();
+    }
+
+    initializeLayout();
+
+    window.addEventListener('resize', () => {
+        initializeLayout();
+    });
+
+    // --- Lógica da Bola de Pingue-Pongue (DVD Screensaver) ---
+    if (ball) {
+        const ballSize = 20;
+        let x = 0;
+        let y = 0;
+        let dx = 4;
+        let dy = 4;
+
+        const colors = [
+            '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'
+        ];
+        let currentColorIndex = 0;
+
+        function getRandomColor() {
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+            return colors[currentColorIndex];
+        }
+
+        function animateBall() {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            if (!isDesktopView()) {
+                ball.style.display = 'none';
+                return;
+            } else {
+                ball.style.display = 'block';
+            }
+
+            x += dx;
+            y += dy;
+
+            if (x + ballSize > viewportWidth || x < 0) {
+                dx *= -1;
+                ball.style.backgroundColor = getRandomColor();
+            }
+            if (y + ballSize > viewportHeight || y < 0) {
+                dy *= -1;
+                ball.style.backgroundColor = getRandomColor();
+            }
+
+            if (x + ballSize > viewportWidth) x = viewportWidth - ballSize;
+            if (x < 0) x = 0;
+            if (y + ballSize > viewportHeight) y = viewportHeight - ballSize;
+            if (y < 0) y = 0;
+
+            ball.style.transform = `translate(${x}px, ${y}px)`;
+
+            requestAnimationFrame(animateBall);
+        }
+
+        animateBall();
+    }
+});
