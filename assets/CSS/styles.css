@@ -21,6 +21,7 @@ body {
     padding: 0;
     line-height: 1.6;
     display: flex;
+    /* Remover 'display: flex' aqui em telas pequenas será importante */
 }
 
 a {
@@ -115,7 +116,7 @@ a:hover {
 
 /* Estilo da área de conteúdo principal */
 .content-area {
-    margin-left: 340px;
+    margin-left: 340px; /* Margem para a sidebar */
     flex-grow: 1;
     margin-top: 1.2rem;
     padding: var(--padding-global) 10%;
@@ -214,15 +215,11 @@ a:hover {
     transition: all 0.6s ease-in-out;
 }
 
-
-
-
-/* Estilo para a bola de pingue-pongue */
 /* Estilo para a bola de pingue-pongue */
 .ping-pong-ball {
     width: 20px;
     height: 20px;
-    background-color: var(--cor-destaque); /* Cor inicial */
+    background-color: var(--cor-destaque);
     border-radius: 50%;
     position: fixed; /* Fixa na tela */
     top: 0; /* Posição inicial (será alterada pelo JS) */
@@ -230,4 +227,106 @@ a:hover {
     z-index: 0; /* Garante que fique no fundo */
     transition: background-color 0.3s ease; /* Transição suave para mudança de cor */
     will-change: transform, background-color; /* Otimização para animação */
+}
+
+
+/* --- RESPONSIVIDADE --- */
+
+/* Para telas menores que 768px (tablets e celulares) */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Altera o layout para coluna */
+        align-items: center; /* Centraliza o conteúdo principal se for mais estreito */
+    }
+
+    .sidebar {
+        position: static; /* Remove a posição fixa */
+        width: calc(100% - 40px); /* Ocupa a largura total com padding */
+        height: auto; /* Altura automática */
+        margin: 20px auto 0 auto; /* Centraliza e adiciona margem inferior */
+        border-radius: var(--borda-arredondada);
+        box-shadow: var(--sombra-card);
+        padding: var(--padding-global);
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-photo {
+        width: 100px; /* Diminui a foto */
+        height: 100px;
+        margin-bottom: 10px;
+    }
+
+    .profile-name {
+        font-size: 1.2rem; /* Diminui o nome */
+        margin-bottom: 5px;
+    }
+
+    .profile-info p {
+        font-size: 0.85rem; /* Diminui o texto de contato */
+    }
+
+    .sidebar-nav {
+        margin-top: 20px;
+    }
+
+    .nav-links {
+        flex-direction: row; /* Links de navegação em linha */
+        flex-wrap: wrap; /* Permite quebrar linha se não couber */
+        justify-content: center; /* Centraliza os links */
+        gap: 10px; /* Espaçamento menor entre links */
+    }
+
+    .nav-links a {
+        font-size: 0.9rem; /* Diminui o tamanho da fonte dos links */
+        padding: 8px 12px; /* Diminui o padding dos links */
+        text-align: center;
+    }
+
+    .content-area {
+        margin-left: 0; /* Remove a margem da sidebar */
+        width: calc(100% - 40px); /* Ocupa a largura total com padding */
+        padding: var(--padding-global); /* Ajusta padding */
+        margin-top: 20px; /* Margem superior para separar da sidebar */
+        max-width: none; /* Remove a largura máxima */
+    }
+
+    .section-card {
+        padding: 30px; /* Padding menor para os cards de conteúdo */
+        position: static; /* Remove a posição absoluta para fluxo normal */
+        transform: none; /* Remove transformações */
+        opacity: 1; /* Todos os cards visíveis, sem sobreposição */
+        filter: none; /* Remove o blur */
+        pointer-events: all; /* Ativa cliques em todos os cards */
+        margin-bottom: 20px; /* Espaçamento entre os cards */
+        border: 2px solid var(--cor-destaque); /* Borda visível em todos */
+    }
+
+    /* Remove estilos de sobreposição em telas pequenas */
+    .section-card.active {
+        z-index: auto; /* Remove z-index específico */
+        border: 2px solid var(--cor-destaque); /* Mantém a borda de destaque */
+    }
+
+    .section-card h2 {
+        font-size: 1.5rem; /* Diminui o tamanho do título da seção */
+    }
+
+    .card {
+        padding: 15px; /* Padding menor para os cards internos */
+    }
+    
+    .card h3 {
+        font-size: 1.1rem; /* Diminui o tamanho do título do card */
+    }
+
+    /* Linhas de conexão e bola de pingue-pongue podem precisar de ajustes adicionais se forem muito grandes */
+    .connection-lines {
+        display: none; /* Esconde as linhas de conexão para simplificar em mobile */
+    }
 }

@@ -5,14 +5,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.querySelector('.sidebar');
     const svg = document.getElementById('connection-lines');
 
+    // Função para verificar se está em modo mobile
+    function isMobileView() {
+        return window.innerWidth <= 768; // O mesmo breakpoint do CSS
+    }
+
+    // Função para ajustar a altura da área de conteúdo (apenas em desktop)
     function adjustContentAreaHeight() {
+        if (isMobileView()) {
+            contentArea.style.minHeight = 'auto'; // Deixa o fluxo normal em mobile
+            return;
+        }
         const activeSection = document.querySelector('.section-card.active');
         if (activeSection) {
             contentArea.style.minHeight = `${activeSection.offsetHeight + (2 * 40) + 20}px`;
         }
     }
 
+    // Função para desenhar as linhas de conexão (apenas em desktop)
     function drawConnectionLine() {
+        if (isMobileView()) {
+            svg.innerHTML = ''; // Limpa o SVG em mobile
+            return;
+        }
         svg.innerHTML = ''; 
 
         const activeSection = document.querySelector('.section-card.active');
@@ -44,6 +59,14 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            // Em mobile, a navegação pode rolar para a seção, mas não precisa do 'active'
+            if (isMobileView()) {
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                return;
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             const targetId = this.getAttribute('href');
@@ -61,91 +84,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    adjustContentAreaHeight();
-    drawConnectionLine();
-
-    window.addEventListener('resize', () => {
-        adjustContentAreaHeight();
-        drawConnectionLine();
-    });
-});
-
-
-
-// Adicione esta lógica dentro do evento DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    // ... (seu código JavaScript existente aqui) ...
-
-    // --- Lógica da Bola de Pingue-Pongue (DVD Screensaver) ---
-    const ball = document.querySelector('.ping-pong-ball');
-    
-    if (ball) { // Verifica se a bola existe antes de tentar animá-la
-        const ballSize = 20; // Largura/Altura da bola (deve ser a mesma do CSS)
-        let x = 0; // Posição X inicial
-        let y = 0; // Posição Y inicial
-        let dx = 4; // Velocidade X (pixels por frame)
-        let dy = 4; // Velocidade Y (pixels por frame)
-
-        const colors = [
-            '#FF0000', // Vermelho
-            '#00FF00', // Verde
-            '#0000FF', // Azul
-            '#FFFF00', // Amarelo
-            '#FF00FF', // Magenta
-            '#00FFFF'  // Ciano
-        ];
-        let currentColorIndex = 0;
-
-        function getRandomColor() {
-            currentColorIndex = (currentColorIndex + 1) % colors.length;
-            return colors[currentColorIndex];
-        }
-
-        function animateBall() {
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-
-            // Lógica de movimento
-            x += dx;
-            y += dy;
-
-            // Detecção de colisão com as bordas e mudança de direção
-            if (x + ballSize > viewportWidth || x < 0) {
-                dx *= -1; // Inverte a direção horizontal
-                ball.style.backgroundColor = getRandomColor();
-            }
-            if (y + ballSize > viewportHeight || y < 0) {
-                dy *= -1; // Inverte a direção vertical
-                ball.style.backgroundColor = getRandomColor();
-            }
-
-            // Garante que a bola não saia da tela ao mudar de direção (ajuste fino)
-            if (x + ballSize > viewportWidth) x = viewportWidth - ballSize;
-            if (x < 0) x = 0;
-            if (y + ballSize > viewportHeight) y = viewportHeight - ballSize;
-            if (y < 0) y = 0;
-
-            // Aplica a nova posição
-            ball.style.transform = `translate(${x}px, ${y}px)`;
-
-            requestAnimationFrame(animateBall);
-        }
-
-        // Inicia a animação
-        animateBall();
-
-        // Opcional: Reinicia a animação se a janela for redimensionada para ajustar as bordas
-        window.addEventListener('resize', () => {
-            // Reposiciona a bola se ela estiver fora da tela após o resize
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            if (x + ballSize > viewportWidth) x = viewportWidth - ballSize;
-            if (x < 0) x = 0;
-            if (y + ballSize > viewportHeight) y = viewportHeight - ballSize;
-            if (y < 0) y = 0;
-            ball.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    }
-    // --- Fim da Lógica da Bola de Pingue-Pongue ---
-
-}); // Fecha o DOMContentLoaded
+    // Lógica para inicializar e reajustar no carregamento/redimensionamento
+    function initializeLayout() {
+        if (isMobileView()) {
+            // Remove a classe 'active' de todas as seções para exibi-las em fluxo normal
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            // Adiciona a classe 'active' à primeira seção novamente, se precisar de um estado inicial
+            // Ou, remove todos os estilos inline para que o CSS de mobile assuma
+            sections.forEach(section => {
+                section.style = ''; // Limpa estilos inline que o JS poderia ter aplicado
+            });
+            // Opcional: Ativa a primeira seção em mobile para garantir borda de destaque
+            // if (sections.length > 0) {
+            //     sections[0].classList.add('active');
+            // }
+        } else {
+            // Em desktop, garante que apenas a primeira esteja ativa
+            sections
