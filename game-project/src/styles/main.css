@@ -1,0 +1,154 @@
+/* video de fundo */
+body{
+    cursor: url("../assets/cursor/yugicursor.png"), default;
+}
+
+.bg-video{
+    position: fixed; /* O vídeo de fundo deve ter posição fixa para ocupar toda a viewport */
+    width: 100%;     /* Garante que o vídeo tenha 100% da largura da tela */
+    height: 100%;    /* Garante que o vídeo tenha 100% da altura da tela */
+    z-index: -2;     /* Coloca o vídeo atrás de todo o conteúdo da página */
+    overflow: hidden;/* Esconde qualquer parte do vídeo que ultrapasse os limites */
+    display: flex;
+    justify-content: center;
+    /* A propriedade "justify-content" não é necessária aqui, pois não é um flexbox ou grid container */
+}
+
+.bg-video .bg-video{
+    height: 100vh;
+}
+
+/* cor sobre o video de fundo */
+.bg-video::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    
+    background: 
+    linear-gradient(
+        90deg,
+        rgba(0,0,0,1)0%,
+        rgba(0,0,0,0.8)50%,
+        rgba(0,0,0,1)100%
+        );
+
+}
+
+.container{
+    position: relative;
+    z-index: 3;
+    display: flex;
+    height: 100vh;
+    
+}
+.container__left{
+    width: 30%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+
+}
+
+
+.container__right{
+    width: 70%;
+   
+
+}
+
+.score_box{
+    background-color: #fff;
+    padding: 30px;
+    text-align: center;
+}
+
+.frame{
+    border: solid 3px #000;
+    border-radius: 8px;
+}
+
+.card__details{
+    background-color: #fff;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 6rem;
+    width: 100%;
+}
+
+#card-name{
+    font-size: 1rem;
+}
+
+#card-type{
+    font-size: 1rem;
+}
+    
+.cardbox__container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    
+
+}
+
+.card-versus{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    padding-top: 0,3px;
+    height: 300px;
+    margin-top: 1rem;
+
+}
+
+.versus-top, .versus-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.versus-bottom{
+    margin-top: 1rem;
+}
+
+#next-duel{
+    display: none;
+}
+
+.card-box{
+    height: 13rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.card-infield{
+    height: 11.2rem;
+    width: 8rem;
+    border: 1px solid #fff;
+    border-radius: 8px;
+}
+
+
+.card{
+    transition: transform 0.2s;
+}
+
+.card:hover{
+    transform: scale(1.2);
+}
